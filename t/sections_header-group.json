@@ -1,0 +1,52 @@
+{
+  "type": "header",
+  "name": "Header group",
+  "sections": {
+    "announcement": {
+      "type": "announcement-bar",
+      "blocks": {
+        "m1": {
+          "type": "message",
+          "settings": {
+            "text": "Free delivery across India · Dispatched within 24 hours"
+          }
+        },
+        "m2": {
+          "type": "message",
+          "settings": {
+            "text": "Fit questions? Ask us on WhatsApp"
+          }
+        },
+        "m3": {
+          "type": "message",
+          "settings": {
+            "text": "Drop 02 just landed: Werewolf, Dead Skull, Persian Red",
+            "link": "shopify://collections/all"
+          }
+        }
+      },
+      "block_order": [
+        "m1",
+        "m2",
+        "m3"
+      ],
+      "settings": {}
+    },
+    "header": {
+      "type": "header",
+      "settings": {
+        "menu": "main-menu",
+        "promo_image": "shopify://shop_images/fk2-promo-drop-02.jpg",
+        "promo_eyebrow": "Drop 02 · Just landed",
+        "promo_title": "Werewolf, Dead Skull, Persian Red",
+        "promo_text": "Three new editions, in stock now.",
+        "promo_button": "Shop now",
+        "promo_link": "shopify://collections/all"
+      }
+    }
+  },
+  "order": [
+    "announcement",
+    "header"
+  ]
+}
