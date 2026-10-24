@@ -1,0 +1,43 @@
+{%- assign wa_number = settings.whatsapp_number | remove: ' ' | remove: '+' | remove: '-' -%}
+<section {% render 'section-attrs', section: section, class: 'sizes' %}>
+  <div class="page-width sizes__grid">
+    <div class="stack" style="--gap: 2rem">
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+      <h2 class="h2">{{ section.settings.heading | escape }}</h2>
+      {%- if section.settings.text != blank -%}<p class="lead">{{ section.settings.text | escape }}</p>{%- endif -%}
+      {%- if settings.fit_rule != blank -%}<p class="sizes__rule">{{ settings.fit_rule | escape }}</p>{%- endif -%}
+      <dl class="sizes__specs">
+        <div><dt>Front × 2</dt><dd>{{ settings.front_size }}</dd></div>
+        <div><dt>Rear × 2</dt><dd>{{ settings.rear_size }}</dd><dd class="small muted">{{ settings.rear_top }} top width</dd></div>
+      </dl>
+      <div class="cluster">
+        <a class="button" href="#FitChecker">Check my car</a>
+        {%- if wa_number != blank -%}
+          <a class="button button--outline" href="https://wa.me/{{ wa_number }}?text={{ settings.whatsapp_message | url_encode }}" target="_blank" rel="noopener" data-fk-track="whatsapp_click">
+            {%- render 'icon', name: 'whatsapp' -%}
+            WhatsApp fit check
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+    <div class="sizes__diagram">{% render 'size-diagram' %}</div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Size confidence",
+  "settings": [
+    { "type": "paragraph", "content": "Sizes come from Theme settings › Mat sizes." },
+    { "type": "text", "id": "eyebrow", "label": "Label", "default": "Size confidence" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Measure once. Order sure." },
+    { "type": "text", "id": "text", "label": "Text", "default": "Take out your current mats, measure the footwell floor and compare. Sizes can vary by about a centimetre." },
+    {"type": "header", "content": "Section style"},
+    {"type": "select", "id": "scheme", "label": "Colors", "options": [{"value": "dark", "label": "Ink"}, {"value": "carbon", "label": "Carbon"}, {"value": "light", "label": "Light"}, {"value": "white", "label": "White"}, {"value": "accent", "label": "Lime"}], "default": "dark"},
+    {"type": "checkbox", "id": "border", "label": "Top border", "default": false},
+    {"type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 72},
+    {"type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 72}
+  ],
+  "presets": [{ "name": "Size confidence" }]
+}
+{% endschema %}

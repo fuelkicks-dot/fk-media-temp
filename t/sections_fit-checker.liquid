@@ -1,0 +1,39 @@
+<section {% render 'section-attrs', section: section, class: 'fit-section' %}>
+  <div class="page-width fit-section__grid" id="FitChecker">
+    <div class="stack" style="--gap: 0.8rem">
+      <h2 class="h2">{{ section.settings.heading | escape }}</h2>
+      {%- if section.settings.text != blank -%}<p class="muted">{{ section.settings.text | escape }}</p>{%- endif -%}
+    </div>
+    {% render 'fit-check',
+      id: section.id,
+      fits_text: section.settings.fits_text,
+      gap_text: section.settings.gap_text,
+      ask_text: section.settings.ask_text
+    %}
+    <p class="small muted fit-section__note">
+      {%- if settings.fit_rule != blank -%}{{ settings.fit_rule | escape }}{%- else -%}Set size: front {{ settings.front_size }}, rear {{ settings.rear_size }}.{%- endif -%}
+      {%- if section.settings.disclaimer != blank %} {{ section.settings.disclaimer | escape }}{% endif -%}
+    </p>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Fit checker",
+  "settings": [
+    { "type": "paragraph", "content": "Cars come from Content › Metaobjects › Car model (make, model, fit_status, note). WhatsApp number: Theme settings › Contact." },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Will it fit my car?" },
+    { "type": "text", "id": "text", "label": "Text", "default": "Pick your car. Answer in seconds." },
+    { "type": "text", "id": "fits_text", "label": "Result when it fits", "info": "{car} becomes the selected car", "default": "Fits your {car}" },
+    { "type": "text", "id": "gap_text", "label": "Result with a small gap", "default": "Fits your {car} with a small gap at the edges" },
+    { "type": "text", "id": "ask_text", "label": "Result when not measured", "default": "We haven't measured the {car} yet — ask us and we'll check" },
+    { "type": "text", "id": "disclaimer", "label": "Disclaimer", "default": "Car brand names identify fit only; we are not affiliated with any car maker." },
+    {"type": "header", "content": "Section style"},
+    {"type": "select", "id": "scheme", "label": "Colors", "options": [{"value": "dark", "label": "Ink"}, {"value": "carbon", "label": "Carbon"}, {"value": "light", "label": "Light"}, {"value": "white", "label": "White"}, {"value": "accent", "label": "Lime"}], "default": "carbon"},
+    {"type": "checkbox", "id": "border", "label": "Top border", "default": false},
+    {"type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 32},
+    {"type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 32}
+  ],
+  "presets": [{ "name": "Fit checker" }]
+}
+{% endschema %}

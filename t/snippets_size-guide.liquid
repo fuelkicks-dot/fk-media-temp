@@ -1,0 +1,32 @@
+{% doc %}
+  Size guide side panel. Opened by any element with data-fk-open="SizeGuide-{{ id }}".
+  @param {string} id - unique id
+  @param {product} [product] - adds the product title to the WhatsApp message
+{% enddoc %}
+{%- assign wa_number = settings.whatsapp_number | remove: ' ' | remove: '+' | remove: '-' -%}
+<dialog class="drawer drawer--right size-guide scheme-light fk-lock" id="SizeGuide-{{ id }}" aria-labelledby="SizeGuideTitle-{{ id }}">
+  <div class="drawer__head">
+    <h2 class="drawer__title" id="SizeGuideTitle-{{ id }}">Will it fit?</h2>
+    <button type="button" class="icon-button" data-fk-close aria-label="Close size guide">
+      {%- render 'icon', name: 'close' -%}
+    </button>
+  </div>
+  <div class="size-guide__body stack" style="--gap: 2rem">
+    {%- if settings.fit_rule != blank -%}<p class="size-guide__rule">{{ settings.fit_rule | escape }}</p>{%- endif -%}
+    {%- assign fit_note = product.metafields.custom.fit_note.value -%}
+    {%- if fit_note != blank -%}<p class="fit__note">{% render 'icon', name: 'ruler' %}<span>{{ fit_note | escape }}</span></p>{%- endif -%}
+    {% render 'size-diagram' %}
+    <ol class="size-guide__steps">
+      <li>Take out your current mats.</li>
+      <li>Measure the driver footwell at its widest point and from front to back.</li>
+      <li>Compare with the front mat ({{ settings.front_size }}) and rear mat ({{ settings.rear_size }}, {{ settings.rear_top }} at the top). Sizes can vary by about a centimetre.</li>
+    </ol>
+    {%- if wa_number != blank -%}
+      {%- capture msg -%}{{ settings.whatsapp_message }}{% if product %} ({{ product.title }}){% endif %}{%- endcapture -%}
+      <a class="button" href="https://wa.me/{{ wa_number }}?text={{ msg | url_encode }}" target="_blank" rel="noopener" data-fk-track="whatsapp_click">
+        {%- render 'icon', name: 'whatsapp' -%}
+        Send us your car model
+      </a>
+    {%- endif -%}
+  </div>
+</dialog>
