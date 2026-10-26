@@ -1,0 +1,20 @@
+{
+  "type": "footer",
+  "name": "Footer group",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "shop": { "type": "menu", "settings": { "menu": "footer" } }
+      },
+      "block_order": ["shop"],
+      "settings": {
+        "tagline": "Drive in style.",
+        "address": "FUELKICKS LLP, 18/1368/M, Kottapadi Downhill, Ernad, Malappuram, Kerala – 676519",
+        "disclaimer": "Car brand names identify fit only; we are not affiliated with any car maker.",
+        "show_payment_icons": true
+      }
+    }
+  },
+  "order": ["footer"]
+}
