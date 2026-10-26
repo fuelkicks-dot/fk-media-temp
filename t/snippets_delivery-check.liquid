@@ -1,0 +1,21 @@
+{% doc %}
+  PIN code delivery estimate. Zones and day ranges come from Theme settings › Delivery and payments.
+  Estimates only: courier serviceability is confirmed by Shiprocket after the order.
+  @param {string} id - unique id for labels
+{% enddoc %}
+<fk-delivery-check
+  class="dcheck"
+  data-zones="{{ settings.pin_local_prefixes | escape }}|{{ settings.pin_local_min }}|{{ settings.pin_local_max }};{{ settings.pin_near_prefixes | escape }}|{{ settings.pin_near_min }}|{{ settings.pin_near_max }};{{ settings.pin_remote_prefixes | escape }}|{{ settings.pin_remote_min }}|{{ settings.pin_remote_max }}"
+  data-min="{{ settings.delivery_min_days }}"
+  data-max="{{ settings.delivery_max_days }}"
+  data-dispatch="{{ settings.dispatch_text | escape }}"
+>
+  <form class="dcheck__form" novalidate>
+    <label for="Pin-{{ id }}" class="dcheck__label">{% render 'icon', name: 'truck' %}Check delivery date</label>
+    <div class="dcheck__row">
+      <input class="input" id="Pin-{{ id }}" type="text" inputmode="numeric" pattern="[1-9][0-9]{5}" maxlength="6" autocomplete="postal-code" placeholder="Enter PIN code" data-fk-pin>
+      <button type="submit" class="button button--outline button--small">Check</button>
+    </div>
+  </form>
+  <div class="dcheck__result" role="status" aria-live="polite" data-fk-pin-result hidden></div>
+</fk-delivery-check>
